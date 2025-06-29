@@ -6,8 +6,7 @@ import { useState } from "react";
 import LandlordComponent from "./Landlord/LandlordComponent";
 import RealtorComponent from "./Landlord/RealtorComponent";
 import PropertyManagerComponent from "./Landlord/PropertyManagerComponent";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+
 type TRole = {
   id: string;
   icon: React.ElementType;
@@ -17,7 +16,7 @@ type TRole = {
 };
 
 const page = () => {
-  const [selectedRole, setSelectedRole] = useState<TRole[] | null>(null);
+  const [selectedRole, setSelectedRole] = useState<TRole | null>(null);
   return (
     <div>
       <main>
@@ -35,9 +34,6 @@ const page = () => {
           )}
         </div>
       </main>
-      <Link href="/checkout" className="flex justify-end mt-20">
-        <Button>Get start</Button>
-      </Link>
     </div>
   );
 };

@@ -8,6 +8,8 @@ import { Breadcrumb } from "../ui/breadcrumb";
 import ListingModal from "./ListingInfo/ListingModal";
 import ChargeModel from "./Charges/ChargeModel";
 import PaymentModel from "./Payment/PaymentModel";
+import { Plus } from "lucide-react";
+import SimplePhotoUploader from "../ui/Photo";
 
 interface PropertyAddress {
   propertyName: string;
@@ -79,153 +81,230 @@ const CondoForm = () => {
     setPayment(data);
   };
   return (
-    <div className="flex gap-5">
-      <div className="w-full">
-        <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm">
-          <div className="flex justify-between items-center pb-4">
-            <h1 className="text-lg font-semibold text-gray-900">
-              Property Address
-              <span className="text-red-500 ml-1">(Required)</span>
-            </h1>
-            <div className="text-blue-600">
+    <div>
+      <div className="flex gap-5">
+        {/* Left Column - 5 sections */}
+        <div className="w-full space-y-3">
+          {/* Property Address */}
+          <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <div className="flex justify-between items-center pb-4">
+              <h1 className="text-lg font-semibold text-gray-900">
+                Property Address
+                <span className="text-red-500 ml-1">(Required)</span>
+              </h1>
               <AdressModal handleSubmit={handleSubmit} />
             </div>
+            {property && (
+              <>
+                <Separator className="my-4" />
+                <div className="mt-4 text-gray-800 space-y-1">
+                  <p>
+                    {property}, {website}, Total units: {unit}
+                  </p>
+                  <p>
+                    {streetAddress}, {country}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* ShadCN Separator after modal div */}
-          {property || address || country ? (
-            <>
-              <Separator className="my-4" />
-
-              <Breadcrumb className="text-gray-700" />
-            </>
-          ) : null}
-
-          <div className="mt-4 text-gray-800">
-            {property || address || country ? (
-              <div className="space-y-1">
-                <p>
-                  {property}, {website}, Total units: {unit}
-                </p>
-                <p>
-                  {streetAddress}, {country}
-                </p>
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm mt-3">
-          <div className="flex justify-between items-center pb-4">
-            <h1 className="text-lg font-semibold text-gray-900">
-              Leasing Info
-              <span className="text-red-500 ml-1">(Required)</span>
-            </h1>
-            <div className="text-blue-600">
+          {/* Leasing Info */}
+          <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <div className="flex justify-between items-center pb-4">
+              <h1 className="text-lg font-semibold text-gray-900">
+                Leasing Info
+                <span className="text-red-500 ml-1">(Required)</span>
+              </h1>
               <ListingModal handleListing={handleListing} />
             </div>
+            {list.length > 0 && (
+              <>
+                <Separator className="my-4" />
+                <div className="mt-4 text-gray-800 space-y-1">
+                  {list.map((item, index) => (
+                    <div key={index}>
+                      <p>
+                        {item.managerName}, {item.email}, phone:{" "}
+                        {item.phoneNumber}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
-          {/* ShadCN Separator after modal div */}
-          {list.length > 0 ? (
-            <>
-              <Separator className="my-4" />
-
-              <Breadcrumb className="text-gray-700" />
-            </>
-          ) : null}
-
-          <div className="mt-4 text-gray-800">
-            {list.length > 0 ? (
-              <div className="space-y-1">
-                {list.map((item, index) => (
-                  <div key={index}>
-                    <p>
-                      {item.managerName}, {item.email},phone:
-                      {item.phoneNumber}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm mt-3">
-          <div className="flex justify-between items-center pb-4">
-            <h1 className="text-lg font-semibold text-gray-900">
-              Charges
-              <span className="text-red-500 ml-1">(Required)</span>
-            </h1>
-            <div className="text-blue-600">
+          {/* Charges */}
+          <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <div className="flex justify-between items-center pb-4">
+              <h1 className="text-lg font-semibold text-gray-900">
+                Charges
+                <span className="text-red-500 ml-1">(Required)</span>
+              </h1>
               <ChargeModel handleFee={handleFee} />
             </div>
+            {chrg.length > 0 && (
+              <>
+                <Separator className="my-4" />
+                <div className="mt-4 text-gray-800">
+                  {/* Render charge data here */}
+                  <p>Charges data will be displayed here</p>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* ShadCN Separator after modal div */}
-          {list.length > 0 ? (
-            <>
-              <Separator className="my-4" />
-
-              <Breadcrumb className="text-gray-700" />
-            </>
-          ) : null}
-
-          <div className="mt-4 text-gray-800">
-            {list.length > 0 ? (
-              <div className="space-y-1">
-                {list.map((item, index) => (
-                  <div key={index}>
-                    <p>
-                      {item.managerName}, {item.email},phone:
-                      {item.phoneNumber}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm mt-3">
-          <div className="flex justify-between items-center pb-4">
-            <h1 className="text-lg font-semibold text-gray-900">
-              Rent Frequency and payment required
-              <span className="text-red-500 ml-1">(Required)</span>
-            </h1>
-            <div className="text-blue-600">
+          {/* Payment */}
+          <div className="border border-gray-200 px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <div className="flex justify-between items-center pb-4">
+              <h1 className="text-lg font-semibold text-gray-900">
+                Payment
+                <span className="text-red-500 ml-1">(Required)</span>
+              </h1>
               <PaymentModel handlePayment={handlePayment} />
+            </div>
+            {payment.length > 0 && (
+              <>
+                <Separator className="my-4" />
+                <div className="mt-4 text-gray-800">
+                  {/* Render payment data here */}
+                  <p>Payment data will be displayed here</p>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Application Agreement */}
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Application Agreement
+              <span className="text-zinc-500">(optional)</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
             </div>
           </div>
 
-          {/* ShadCN Separator after modal div */}
-          {list.length > 0 ? (
-            <>
-              <Separator className="my-4" />
+          {/* About the property */}
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              About the property
+              <span className="text-zinc-500">(optional)</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
+          </div>
 
-              <Breadcrumb className="text-gray-700" />
-            </>
-          ) : null}
-
-          <div className="mt-4 text-gray-800">
-            {list.length > 0 ? (
-              <div className="space-y-1">
-                {list.map((item, index) => (
-                  <div key={index}>
-                    <p>
-                      {item.managerName}, {item.email},phone:
-                      {item.phoneNumber}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : null}
+          {/* Community's amenity/features */}
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Community&#39;s amenity/features
+              <span className="text-zinc-500">(optional but recommended)</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
           </div>
         </div>
+
+        {/* Right Column - 5 sections */}
+        <div className="w-full space-y-3">
+          {/* Property Preview */}
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Pet Fees
+              <span className="text-zinc-500">(optional )</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
+          </div>
+
+          {/* Documents */}
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Parking
+              <span className="text-zinc-500">(Optional )</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
+          </div>
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Nearest educational institution
+              <span className="text-zinc-500">(Optional but recommended)</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
+          </div>
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Nearest solution
+              <span className="text-zinc-500">(Optional but recommended)</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
+          </div>
+          <div className="border border-gray-200 flex justify-between px-3 py-3 rounded-2xl bg-white shadow-sm">
+            <h1 className="text-lg font-semibold text-gray-900">
+              Utilities Provider
+              <span className="text-zinc-500">(Optional but recommended)</span>
+            </h1>
+            <div className="flex items-center text-blue-600">
+              <Plus />{" "}
+              <span className="text-blue-600 underline">add skill</span>
+            </div>
+          </div>
+          {/*  */}
+          {/* Amenities */}
+
+          {/* Reviews */}
+        </div>
       </div>
-      <div className="w-full">
-        {/* task one */}
-        <div className="border px-3 py-5 rounded">
-          <h1 className="text-[18px] text-black font-semibold">
-            Property address <span className="text-[#FF6A62]">(Required)</span>
-          </h1>
+      <div className=" border p-5 rounded-2xl mt-4">
+        <h1 className="text-xl  text-black font-semibold">Property Gallery</h1>
+        <div className="w-full  flex gap-2">
+          <SimplePhotoUploader centerText={"upload cover photo"} />
+          <div className="flex gap-2 space-y-2">
+            <div>
+              <SimplePhotoUploader width="100px" height="100px" />
+              <SimplePhotoUploader width="100px" height="100px" />
+            </div>
+            <div>
+              <SimplePhotoUploader width="100px" height="100px" />
+              <SimplePhotoUploader width="100px" height="100px" />
+            </div>
+          </div>
+          <div className="flex gap-2 space-y-2 ml-10">
+            <div>
+              <SimplePhotoUploader width="100px" height="100px" />
+              <SimplePhotoUploader width="100px" height="100px" />
+            </div>
+            <div>
+              <SimplePhotoUploader width="100px" height="100px" />
+              <SimplePhotoUploader width="100px" height="100px" />
+            </div>
+            <div>
+              <SimplePhotoUploader width="100px" height="100px" />
+              <SimplePhotoUploader width="100px" height="100px" />
+            </div>
+            <div>
+              <SimplePhotoUploader width="100px" height="100px" />
+              <SimplePhotoUploader width="100px" height="100px" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -233,3 +312,4 @@ const CondoForm = () => {
 };
 
 export default CondoForm;
+// Community’s amenity/features

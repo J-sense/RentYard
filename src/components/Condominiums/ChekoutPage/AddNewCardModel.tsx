@@ -22,7 +22,7 @@ export function AddNewCardModal() {
           <span className="text-blue-600 underline">Add New Card</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <CreditCard className="h-5 w-5" />
@@ -34,9 +34,9 @@ export function AddNewCardModal() {
         </DialogHeader>
 
         <form className="space-y-4">
-          {/* First two inputs in flex container */}
-          <div className="flex  space-y-4 gap-1">
-            <div className="">
+          {/* Cardholder Name and Card Number in flex container */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
               <Label htmlFor="cardName">Cardholder Name</Label>
               <Input
                 id="cardName"
@@ -46,7 +46,7 @@ export function AddNewCardModal() {
                 required
               />
             </div>
-            <div className="">
+            <div className="space-y-2">
               <Label htmlFor="cardNumber">Card Number</Label>
               <Input
                 id="cardNumber"
@@ -61,9 +61,9 @@ export function AddNewCardModal() {
             </div>
           </div>
 
-          {/* Second two inputs in flex container */}
-          <div className="flex space-x-4">
-            <div className="">
+          {/* Expiry Date and CVC in flex container */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
               <Label htmlFor="expiryDate">Expiry Date</Label>
               <Input
                 id="expiryDate"
@@ -76,7 +76,7 @@ export function AddNewCardModal() {
                 required
               />
             </div>
-            <div className="">
+            <div className="space-y-2">
               <Label htmlFor="cvc">CVC</Label>
               <Input
                 id="cvc"
@@ -91,7 +91,7 @@ export function AddNewCardModal() {
             </div>
           </div>
 
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-6">
             <DialogClose asChild>
               <Button type="button" variant="outline">
                 Cancel
